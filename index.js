@@ -32,10 +32,13 @@ const app = express();
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors({ origin: true }));
+app.use(cors(
+  {
+     origin: "*",
+     methods : ['POST', 'UPDATE'] 
+    }));
 
 app.post("/create-intent", async (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*");
   const amount = req.body.amount;
   const currency = req.body.currency;
 
