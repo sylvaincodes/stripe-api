@@ -35,9 +35,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: true }));
 
 app.post("/create-intent", async (req, res) => {
+  const amount = req.body.amount;
+  const currency = req.body.currency;
+
   const intent = await stripe.paymentIntents.create({
-    amount: 1099,
-    currency: "usd",
+    amount: amount,
+    currency: currency,
     // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
     automatic_payment_methods: { enabled: true },
   });
@@ -46,18 +49,20 @@ app.post("/create-intent", async (req, res) => {
 
 // A simple api to get all tasks
 app.listen(PORT, () => {
-  console.log("Running on port "+PORT);
+  console.log("Running on port " + PORT);
 });
 
 app.get("/hello", (request, response) => {
-    response.status(200).send([{
-        id: '123',
-        name: 'Task 1',
-        isComplete: false
+  response.status(200).send([
+    {
+      id: "123",
+      name: "Task 1",
+      isComplete: false,
     },
     {
-        id: '456',
-        name: 'Task 2',
-        isComplete: true
-    }]);
+      id: "456",
+      name: "Task 2",
+      isComplete: true,
+    },
+  ]);
 });
