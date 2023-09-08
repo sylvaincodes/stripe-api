@@ -64,12 +64,12 @@ app.use(function (req, res, next) {
 });
 
 app.post("/create-intent", async (req, res) => {
-  // const amount = req.body.amount;
-  // const currency = req.body.currency;
+  const amount = req.body.amount;
+  const currency = req.body.currency;
 
   const intent = await stripe.paymentIntents.create({
-    amount: 2000,
-    currency: "usd",
+    amount: amount,
+    currency: currency,
     // In the latest version of the API, specifying the `automatic_payment_methods` parameter is optional because Stripe enables its functionality by default.
     automatic_payment_methods: { enabled: true },
   });
